@@ -17,6 +17,10 @@ app.config(function ($routeProvider) {
           $scope.msg = "是捏，就是好冷！";
         }
       })
+      .when('/goodslist', {
+        templateUrl: 'view/goodsList.html',
+        controller: 'GoodsController'
+      })
 
     // 需要在localhost下面运行
   })
