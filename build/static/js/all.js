@@ -38,6 +38,8 @@ function ($routeProvider, $locationProvider) {
         templateUrl: '/view/goodsList.html',
         controller: 'GoodsController'
       });
+      //改成h5 的history 模式
+      // 默认是hash 模式
       $locationProvider.html5Mode(true);
     // 需要在localhost下面运行
   }])
