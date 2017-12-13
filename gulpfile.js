@@ -33,6 +33,9 @@ gulp.task('script',function(){
     .pipe(gulp.dest(app.distPath + 'static/js')) //生成到生产环境里面    
 })
 // npm i gulp gulp-plumber gulp-concat gulp-load-plugins open gulp-rename gulp-uglify -D
+// npm i gulp gulp-plumber gulp-concat gulp-load-plugins open gulp-rename gulp-uglify -D
+// npm i gulp gulp-plumber gulp-concat gulp-load-plugins open gulp-rename gulp-uglify -D
+// npm i gulp gulp-plumber gulp-concat gulp-load-plugins open gulp-rename gulp-uglify -D
 
 //启动一个serve 
 gulp.task('serve',function(){
