@@ -8,7 +8,8 @@ var app = angular.module('starkapp',[
 angular.module('controllers',[]);
 angular.module('services',[]);
 
-app.config(function ($routeProvider) {
+app.config(['$routeProvider', '$locationProvider',
+function ($routeProvider, $locationProvider) {
     $routeProvider.when('/', {
       template: '<h1>今天好冷哦！{{msg}}</h1>',
       controller: function ($scope) {
@@ -28,18 +29,18 @@ app.config(function ($routeProvider) {
         }
       })
       .when('/shudong', {
-        templateUrl: 'tpl.html',
+        templateUrl: '/view/tpl.html',
         controller: function ($scope) {
           $scope.msg = "是捏，就是好冷！";
         }
       })
       .when('/goodslist', {
-        templateUrl: 'view/goodsList.html',
+        templateUrl: '/view/goodsList.html',
         controller: 'GoodsController'
-      })
-
+      });
+      $locationProvider.html5Mode(true);
     // 需要在localhost下面运行
-  })
+  }])
 angular.module('controllers').controller('GoodsController',[
   '$scope',
   '$route',
@@ -51,8 +52,17 @@ angular.module('controllers').controller('GoodsController',[
     $routeParams,
     GoodsService
   ){
-    $scope.goodsList = GoodsService.fetchGoodsList();
+     GoodsService.fetchGoodsList().then(function(data){
+       console.log(data);
+       $scope.goodsList = data.data.data;
+    });
   }])
+angular.module('starkapp').directive('appHead',[function() {
+  return {
+      restrict:'A',
+      templateUrl:'/view/common/head.html'
+  }
+}])
 angular.module('starkapp')
     .factory('GoodsService',['$http',function($http) {
       return{

@@ -14,12 +14,23 @@ var app = {
 //打包依赖的插件和包
 gulp.task('bundle',function(){
   gulp.src([
+    './bower_components/bootstrap/dist/css/bootstrap.min.css',
+    './bower_components/font-awesome/css/font-awesome.min.css',
+  ])
+  .pipe($.plumber())
+  .pipe($.concat('bundle.css'))
+  .pipe(gulp.dest(app.devPath + '/static/style'))
+  .pipe(gulp.dest(app.distPath + 'static/style')) //生成到生产环境里面    
+
+
+  gulp.src([
     './bower_components/angular/angular.min.js',
     './bower_components/angular-route/angular-route.min.js',
   ])
   .pipe($.plumber()) //编译错误后继续往下执行
   .pipe($.concat('bundle.js')) //合并文件
   .pipe(gulp.dest(app.devPath + 'static/js')) //生成到这个路径里面
+
 })
 
 
@@ -37,6 +48,14 @@ gulp.task('script',function(){
 // npm i gulp gulp-plumber gulp-concat gulp-load-plugins open gulp-rename gulp-uglify -D
 // npm i gulp gulp-plumber gulp-concat gulp-load-plugins open gulp-rename gulp-uglify -D
 
+
+gulp.task('template',function(){
+    gulp.src('./src/view/**/*.html')
+      .pipe($.plumber())
+      .pipe(gulp.dest(app.devPath + 'view'))
+      .pipe(gulp.dest(app.distPath + 'view'))
+})
+
 //启动一个serve 
 gulp.task('serve',function(){
     connect.server({
@@ -46,8 +65,16 @@ gulp.task('serve',function(){
     })
 })
 
+// 配置监听
+gulp.task('watch',function(){
+  gulp.watch('./src/script/**/*.js',['script']);
+  gulp.watch('./src/view/**/*.html',['template']);
+})
+
 gulp.task('dev',[
   'serve',
+  'watch',
   'script',
-  'bundle'
+  'bundle',
+  'template'
 ])

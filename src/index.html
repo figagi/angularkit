@@ -7,6 +7,9 @@
   <link rel="stylesheet" type="" href="/static/css/bundle.css">
   <title>Document</title>
 </head>
+  <script type="text/javascript">
+    angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
+  </script>
 <body ng-app="starkapp">
   <!-- 头部 -->
 
